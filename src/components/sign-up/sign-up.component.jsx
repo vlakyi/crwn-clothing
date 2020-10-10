@@ -12,7 +12,7 @@ class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dispayName: '',
+            displayName: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -21,17 +21,16 @@ class SignUp extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-
-        const { dispayName, email, password, confirmPassword } = this.state;
-        if(password !== confirmPassword) {
+        const { displayName, email, password, confirmPassword } = this.state;
+        if (password !== confirmPassword) {
             alert("passwords don't match");
             return;
         }
 
         try {
-           const {user} = await auth.createUserWithEmailAndPassword(email, password);
-           
-           await createUserProfileDocument(user, dispayName);
+            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+
+            await createUserProfileDocument(user, { displayName });
             this.setState({
                 displayName: '',
                 email: '',
@@ -44,13 +43,13 @@ class SignUp extends React.Component {
     }
 
     handleChange = event => {
-        const {name, value} = event.target;
-        
+        const { name, value } = event.target;
+
         this.setState({ [name]: value });
     }
 
     render() {
-        const { dispayName, email, password, confirmPassword } = this.state;
+        const { displayName, email, password, confirmPassword } = this.state;
         return (
             <div className="sign-up">
                 <h2 className="title">I do not have a account</h2>
@@ -59,7 +58,7 @@ class SignUp extends React.Component {
                     <FormInput
                         type='text'
                         name='displayName'
-                        value={dispayName}
+                        value={displayName}
                         onChange={this.handleChange}
                         label='Display Name'
                         required
