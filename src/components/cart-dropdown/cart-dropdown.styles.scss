@@ -10,12 +10,31 @@
     top: 90px;
     right: 40px;
     z-index: 5;
+    scrollbar-width: 2px;
   
     .cart-items {
       height: 240px;
       display: flex;
       flex-direction: column;
       overflow-y: scroll;
+      scrollbar-width: 2px;
+
+      & .empty-message {
+        font-size: 18px;
+        margin: 50px auto;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        padding: 0 3px;
+      }
+    
+      &::-webkit-scrollbar-track {
+          background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+          background-color: rgba($color: #000000, $alpha: 0.2);
+      }
     }
   
     button {
