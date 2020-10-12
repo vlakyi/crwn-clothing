@@ -1,3 +1,4 @@
+E-commerce webpage created with react, redux, firebase, stripe api and more.
 Check it there: https://crwn-ecommerce-vk.herokuapp.com/
 
 ## Available Scripts
