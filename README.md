@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+E-commerce webpage created with react, redux, firebase, stripe api and more.
+Check it there: https://crwn-ecommerce-vk.herokuapp.com/
 
 ## Available Scripts
 
