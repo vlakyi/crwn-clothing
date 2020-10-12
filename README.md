@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Check it there: https://crwn-ecommerce-vk.herokuapp.com/
 
 ## Available Scripts
 
