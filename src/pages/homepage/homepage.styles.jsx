@@ -5,4 +5,14 @@ export const HomePageContainer = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px 80px;
+    max-width: 60%;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1920px) {
+        max-width: 80%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        max-width: 100%;
+    }
 `;

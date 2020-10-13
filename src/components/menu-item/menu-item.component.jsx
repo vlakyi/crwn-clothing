@@ -1,20 +1,17 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import './menu-item.styles.scss';
+
+import {MenuItemContainer, BackgroundImage, MenuItemContent, MenuItemTitle, MenuItemSubtitle} from './menu-item.styles';
 
 const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
-    <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
-        <div
-            className="background-image"
-            style={{
-                backgroundImage: `url(${imageUrl})`
-            }}
+    <MenuItemContainer size={size} onClick={() => history.push(`${match.url}${linkUrl}`)}>
+        <BackgroundImage imageUrl = {imageUrl}
         />
-        <div className="content">
-            <h1 className="title">{title.toUpperCase()}</h1>
-            <span className="subtitle">SHOP NOW</span>
-        </div>
-    </div>
+        <MenuItemContent>
+            <MenuItemTitle>{title.toUpperCase()}</MenuItemTitle>
+            <MenuItemSubtitle>SHOP NOW</MenuItemSubtitle>
+        </MenuItemContent>
+    </MenuItemContainer>
 );
 
 // Adding MenuItem access to router's properties
