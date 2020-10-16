@@ -1,11 +1,12 @@
 import React from 'react';
 import CollectionItem from '../collection-item/collection-item.component';
+import { withRouter } from 'react-router-dom';
 
-import { PreviewCollectionComponent, Title, Preview } from './collection-preview.styles';
+import { PreviewCollectionComponent, TitleLink, Preview } from './collection-preview.styles';
 
-const PreviewCollection = ({ title, items }) => (
+const PreviewCollection = ({ title, items, location }) => (
     <PreviewCollectionComponent>
-        <Title>{title.toUpperCase()}</Title>
+        <TitleLink to={`${location.pathname}/${title.toLowerCase()}`}>{title.toUpperCase()}</TitleLink>
         <Preview>
             {
                 items
@@ -18,4 +19,4 @@ const PreviewCollection = ({ title, items }) => (
     </PreviewCollectionComponent>
 );
 
-export default PreviewCollection;
+export default withRouter(PreviewCollection);

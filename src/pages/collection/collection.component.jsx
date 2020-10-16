@@ -7,6 +7,7 @@ import CollectionItem from '../../components/collection-item/collection-item.com
 import { CollectionPageContainer, ItemsContainer, CollectionHeader } from './collection.styles';
 
 const CollectionPage = ({ collection }) => {
+    console.log(collection);
     const { title, items } = collection;
     console.log(items);
     return (

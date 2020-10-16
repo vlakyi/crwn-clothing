@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const selectShop = state => state.shop;
 
-const selectUrlCollectionType = (_, props) => props.match.params.collectionType;   // passing props as second argument to get PageUrl
+const selectUrlCollectionType = (state, props) => props.match.params.collectionType;   // passing props as second argument to get PageUrl
 
 export const selectCollections = createSelector(
     [selectShop],
@@ -11,7 +11,7 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
     [selectCollections],
-    collections => Object.values(collections)
+    collections => collections ? Object.values(collections) : []
 )
 
 
