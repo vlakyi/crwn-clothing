@@ -25,11 +25,16 @@ class ShopPage extends React.Component {
         const { updateCollections } = this.props;
         const collectionRef = firestore.collection('collections');
 
+        // Creating Observer and update collection on each database change
         this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
             const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
             updateCollections(collectionsMap);
             this.setState({ loading: false });
         });
+    }
+    
+    componentWillUnmount() {
+        this.unsubscribeFromSnapshot();
     }
 
     render() {
