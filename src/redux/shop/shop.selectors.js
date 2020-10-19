@@ -14,10 +14,19 @@ export const selectCollectionsForPreview = createSelector(
     collections => collections ? Object.values(collections) : []
 )
 
-
 export const selectCollection = createSelector(
     [selectCollections, selectUrlCollectionType],
     (collections, collectionType) => {
         return collections[collectionType]
     }
+);
+
+export const selectIsCollectionFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+);
+
+export const selectIsCollectionLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections                          // converting to boolean value
 );
