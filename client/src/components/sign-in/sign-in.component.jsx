@@ -27,8 +27,6 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
         setCredentials({ ...userCredentials, [name]: value });
     };
 
-
-    console.log(window.innerWidth);
     return (
         <SignInContainer>
             <SignInTitle>I already have an account </SignInTitle>

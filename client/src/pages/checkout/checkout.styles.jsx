@@ -12,6 +12,11 @@ export const CheckoutPageContainer = styled.div`
       margin-left: auto;
       margin-top: 50px;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 85vw;
+        margin: 0 auto;
+    }
 `;
 
 export const CheckoutHeader = styled.header`
@@ -24,11 +29,6 @@ export const CheckoutHeader = styled.header`
 
 export const CheckoutHeaderBlock = styled.div`
     text-transform: capitalize;
-    width: 23%;
-
-    &:last-child {
-        width: 8%;
-    }
 `;
 
 export const CheckoutTotal = styled.div`
