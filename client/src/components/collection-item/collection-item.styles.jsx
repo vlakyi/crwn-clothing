@@ -31,6 +31,20 @@ export const CollectionItemContainer = styled.div`
         }
       }
     }
+
+  @media screen and (max-width: 425px) {
+      width: 80vw;
+      margin-bottom: 20px;
+
+      &:hover {
+        .image {
+          opacity: unset;
+        }
+        button {
+          opacity: unset;
+        }
+      }
+    }
 `;
 
 export const AddButton = styled(CustomButton)`
@@ -45,6 +59,7 @@ export const AddButton = styled(CustomButton)`
       opacity: 0.9;
       min-width: unset;
       padding: 0 10px;
+      width: 85%;
   }
 `;
 
@@ -67,7 +82,7 @@ export const CollectionFooterContainer = styled.div`
 
 export const NameContainer = styled.span`
   width: 90%;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 `;
 
 export const PriceContainer = styled.span`

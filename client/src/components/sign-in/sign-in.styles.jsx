@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
-    width: 400px;
+    max-width: 400px;
+    width: 80vw;
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 `;
 
 export const ButtonsContainer = styled.div`

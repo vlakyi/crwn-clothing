@@ -19,6 +19,10 @@ export const MenuItemContent = styled.div`
     background-color: white;
     opacity: 0.7;
     position: absolute;
+
+    @media screen and (max-width: 375px) {
+        padding: 0 10px;
+    }
 `;
 
 export const MenuItemContainer = styled.div`

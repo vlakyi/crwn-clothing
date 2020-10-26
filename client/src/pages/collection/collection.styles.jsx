@@ -7,12 +7,18 @@ export const CollectionPageContainer = styled.div`
 
 export const ItemsContainer = styled.div`
   display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-gap: 10px;
-  
-      & > div {
-        margin-bottom: 30px;
-      }
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+
+  & > div {
+    margin-bottom: 30px;
+  }
+
+  @media screen and (max-width:800px) {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 `;
 
 export const CollectionHeader = styled.h2`

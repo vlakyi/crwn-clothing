@@ -42,7 +42,7 @@ const getButtonStyles = props => {
 }
 
 export const CustomButtonContaner = styled.button`
-  min-width: 150px;
+    min-width: 120px;
     width: auto;
     height: 50px;
     letter-spacing: 0.5px;

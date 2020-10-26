@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -11,6 +11,11 @@ import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actio
 const SignIn = ({ googleSignInStart, emailSignInStart }) => {
     const [userCredentials, setCredentials] = useState({ email: '', password: '' });
     const { email, password } = userCredentials;
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        setWidth(window.innerWidth);
+    }, [width]);
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -22,6 +27,8 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
         setCredentials({ ...userCredentials, [name]: value });
     };
 
+
+    console.log(window.innerWidth);
     return (
         <SignInContainer>
             <SignInTitle>I already have an account </SignInTitle>
@@ -45,7 +52,7 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
                 />
                 <ButtonsContainer>
                     <CustomButton type='submit'> Sign in </CustomButton>
-                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn> Sign in with Google </CustomButton>
+    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>{width < 425 ? 'Google' : 'Login with Google'}</CustomButton>
                 </ButtonsContainer>
             </form>
         </SignInContainer>
