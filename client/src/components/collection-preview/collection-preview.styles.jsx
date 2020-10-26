@@ -4,6 +4,10 @@ export const PreviewCollectionComponent = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 800px) {
+        align-items: center;
+    }
 `;
 
 export const TitleLink = styled(Link)`
@@ -14,4 +18,9 @@ export const TitleLink = styled(Link)`
 export const Preview = styled.div`
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 800px) {
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 `;
