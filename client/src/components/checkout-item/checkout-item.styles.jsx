@@ -31,11 +31,7 @@ export const Name = styled.span`
 export const Quantity = styled.span`
     ${defaultWidth};
     display: flex;
-    padding-left: 20px;
-
-    @media screen and (max-width: 425px) {
-        padding-left: 0;
-    }
+    margin: 0 15px;
 `;
 
 export const Price = styled.span`
