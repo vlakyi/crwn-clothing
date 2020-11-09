@@ -14,7 +14,6 @@ export const CartDropdownContainer = styled.div`
         right: 40px;
         z-index: 5;
         scrollbar-width: 2px;
-        font-size: 14px;
 
         button {
             margin-top: auto;

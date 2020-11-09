@@ -53,7 +53,7 @@ const ContactPage = () => {
                         <StyledTextArea onChange={handleInputChange} name='message' />
                         <FormTextAreaLabel className='form-textarea-label' shrink={message} value={message}> Message </FormTextAreaLabel>
                     </GroupContainer>
-                    <CustomButton onClick={handleSubmit}> Submit </CustomButton>
+                    <CustomButton onClick={handleSubmit} style={{fontSize: 14}}> Submit </CustomButton>
                 </StyledForm>
             </div>
         </ContactContainer>
