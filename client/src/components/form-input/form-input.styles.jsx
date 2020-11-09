@@ -1,24 +1,21 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const mainColor = 'black';
-const subColor = 'grey'
+const subColor = 'grey';
+const activeColor = '#4285f4';
 
 const shrinkLabel = css`
-    top: -14px;
+    top: -20px;
+    left: 0;
     font-size: 12px;
     color: ${mainColor};
 `;
 
-export const GroupContainer = styled.div`
-    position: relative;
-    margin: 45px 0;
-
-    input[type='password'] {
-        letter-spacing: 0.3em;
-    }
+export const inputLabelStyles = css`
+    
 `;
 
-export const StyledInput = styled.input`
+export const inputStyles = css`
     background: none;
     background-color: white;
     color: ${subColor};
@@ -29,10 +26,10 @@ export const StyledInput = styled.input`
     border: none;
     border-radius: 0;
     border-bottom: 1px solid ${subColor};
-    margin: 25px 0;
 
     &:focus {
       outline: none;
+      border-bottom-color: ${activeColor};
     }
 
     &:focus ~ .form-input-label {
@@ -40,15 +37,29 @@ export const StyledInput = styled.input`
     }
 `;
 
+export const GroupContainer = styled.div`
+    position: relative;
+    margin: 40px 0;
+
+    input[type='password'] {
+        letter-spacing: 0.3em;
+    }
+`;
+
+export const StyledInput = styled.input`
+    ${inputStyles};
+`;
+
 export const FormInputLabel = styled.label`
     color: ${subColor};
     font-size: 16px;
     font-weight: normal;
+    font-family: 'Open Sans Condensed';
     position: absolute;
     pointer-events: none;
-    left: 5px;
     top: 10px;
+    left: 5px;
     transition: 300ms ease all;
 
-    ${props => props.shrink.length ? shrinkLabel : ''}
+    ${props => props.shrink.length ? shrinkLabel : ''};
 `;

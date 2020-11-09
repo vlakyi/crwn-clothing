@@ -18,6 +18,7 @@ const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const SignInAndSignUpPage = lazy(() => import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'));
+const ContactPage = lazy(() => import('./pages/contact/contact.component'));
 
 const App = ({ checkUserSession, currentUser }) => {
 
@@ -42,6 +43,7 @@ const App = ({ checkUserSession, currentUser }) => {
                   <SignInAndSignUpPage />
                 )
             } />
+            <Route exact path='/contact' component={ContactPage} />
           </Suspense>
         </ErrorBoundary>
       </Switch>
