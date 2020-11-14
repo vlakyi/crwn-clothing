@@ -1,8 +1,12 @@
 import React, { useReducer } from 'react';
-import { ContactContainer, GroupContainer, StyledForm, StyledHeader, StyledTextArea, IconContainer, ArrowUp, InnerArrowUp, Box} from './contact.styles';
+import { ContactContainer, GroupContainer, StyledForm, StyledHeader, StyledTextArea, IconContainer, ArrowUp, InnerArrowUp, Box } from './contact.styles';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import FormInput from '../../components/form-input/form-input.component';
-import {FormInputLabel as FormTextAreaLabel} from '../../components/form-input/form-input.styles';
+import { FormInputLabel as FormTextAreaLabel } from '../../components/form-input/form-input.styles';
+import { debounce } from 'lodash';
+import axios from 'axios';
+
+import { useCallback } from 'react';
 
 const initialState = {
     name: '',
@@ -10,7 +14,7 @@ const initialState = {
     message: ''
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
     switch (action.type) {
         case 'name':
             return { ...state, name: action.payload }
@@ -27,12 +31,29 @@ const ContactPage = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { name, email, message } = state;
 
+    const dispatchInputValue = useCallback(debounce((name, value) => dispatch({ type: name, payload: value }), 150), []);
+
     const handleInputChange = (e) => {
-        dispatch({ type: e.target.name, payload: e.target.value });
+        const { name, value } = e.target;
+        dispatchInputValue(name, value);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (email.includes('@')) {
+            try {
+                const { data, status } = await axios({
+                    url: 'contact',
+                    method: 'post',
+                    data: {
+                        name, email, message
+                    }
+                });
+                console.log(data, status);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     return (
@@ -41,23 +62,52 @@ const ContactPage = () => {
                 <ArrowUp>
                     <InnerArrowUp />
                 </ArrowUp>
-                <Box/>
+                <Box />
             </IconContainer>
+
             <div>
                 <StyledHeader main>Connect with us.</StyledHeader>
                 <StyledHeader>Write your question below.</StyledHeader>
                 <StyledForm>
-                    <FormInput handleChange={handleInputChange} name='name' label='Name' value={name} style={{ gridArea: 'name' }} />
-                    <FormInput handleChange={handleInputChange} name='email' label='Email' type='email' value={email} style={{ gridArea: 'email' }} />
+                    <FormInput
+                        handleChange={handleInputChange}
+                        id="contactPageName"
+                        name='name'
+                        label='Name'
+                        value={name}
+                        style={{ gridArea: 'name' }} />
+
+                    <FormInput
+                        handleChange={handleInputChange}
+                        id="contactPageEmail"
+                        name='email'
+                        label='Email'
+                        type='email'
+                        value={email}
+                        autoComplete='username'
+                        style={{ gridArea: 'email' }} />
+
                     <GroupContainer>
-                        <StyledTextArea onChange={handleInputChange} name='message' />
-                        <FormTextAreaLabel className='form-textarea-label' shrink={message} value={message}> Message </FormTextAreaLabel>
+                        <StyledTextArea
+                            onChange={handleInputChange}
+                            name='message'
+                            id="message" />
+
+                        <FormTextAreaLabel
+                            className='form-textarea-label'
+                            htmlFor='message'
+                            shrink={message}> Message </FormTextAreaLabel>
+
                     </GroupContainer>
-                    <CustomButton onClick={handleSubmit} style={{fontSize: 14}}> Submit </CustomButton>
+
+                    <CustomButton
+                        onClick={handleSubmit}
+                        style={{ fontSize: 14 }}> Submit </CustomButton>
                 </StyledForm>
             </div>
+
         </ContactContainer>
     )
 }
 
-export default ContactPage
+export default ContactPage;
