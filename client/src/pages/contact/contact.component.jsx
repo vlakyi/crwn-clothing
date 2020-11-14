@@ -3,7 +3,7 @@ import { ContactContainer, GroupContainer, StyledForm, StyledHeader, StyledTextA
 import CustomButton from '../../components/custom-button/custom-button.component';
 import FormInput from '../../components/form-input/form-input.component';
 import { FormInputLabel as FormTextAreaLabel } from '../../components/form-input/form-input.styles';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 import axios from 'axios';
 
 import { useCallback } from 'react';
@@ -31,7 +31,7 @@ const ContactPage = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { name, email, message } = state;
 
-    const dispatchInputValue = useCallback(debounce((name, value) => dispatch({ type: name, payload: value }), 150), []);
+    const dispatchInputValue = useCallback(throttle((name, value) => dispatch({ type: name, payload: value }), 250), []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
