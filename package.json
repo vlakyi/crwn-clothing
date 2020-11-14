@@ -11,11 +11,12 @@
     "client": "cd client && npm start",
     "server": "nodemon server.js",
     "build": "cd client && npm run build",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev": "SET NODE_ENV=DEVELOPMENT && concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
     "axios": "^0.20.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
