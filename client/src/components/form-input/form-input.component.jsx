@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {GroupContainer, StyledInput, FormInputLabel, } from './form-input.styles';
+import { GroupContainer, StyledInput, FormInputLabel, } from './form-input.styles';
 
 // import './form-input.styles.scss';
 
-const FormInput = ({ handleChange, label, value, ...otherProps }) => (
+const FormInput = ({ handleChange, label, value, id, ...otherProps }) => (
     <GroupContainer>
-        <StyledInput onChange={handleChange} {...otherProps} />
+        <StyledInput onChange={handleChange} id={id} {...otherProps} />
         {
             label ?
-                <FormInputLabel shrink={value}>
+                <FormInputLabel shrink={value} htmlFor={`${id ? id : ''}`}>
                     {label}
                 </FormInputLabel>
                 : null
