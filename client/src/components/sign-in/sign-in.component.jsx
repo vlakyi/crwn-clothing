@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -7,6 +7,8 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import { SignInContainer, ButtonsContainer, SignInTitle } from './sign-in.styles';
 import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actions';
+
+import { throttle } from 'lodash';
 
 const SignIn = ({ googleSignInStart, emailSignInStart }) => {
     const [userCredentials, setCredentials] = useState({ email: '', password: '' });
@@ -22,9 +24,11 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
         emailSignInStart(email, password);
     };
 
+    const setCredentialsTrottle = useCallback(throttle((userCredentials, value, name) => setCredentials({ ...userCredentials, [name]: value }), 250), []);
+
     const handleChange = event => {
         const { value, name } = event.target;
-        setCredentials({ ...userCredentials, [name]: value });
+        setCredentialsTrottle(userCredentials, value, name);
     };
 
     return (
@@ -34,23 +38,27 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
 
             <form onSubmit={handleSubmit}>
                 <FormInput
+                    id='singInEmail'
                     name='email'
                     type='email'
                     value={email} required
                     handleChange={handleChange}
+                    autoComplete='username'
                     label='Email'
                 />
 
                 <FormInput
+                    id='signInPassword'
                     name='password'
                     type='password'
                     value={password} required
                     handleChange={handleChange}
                     label='Password'
+                    autoComplete='current-password'
                 />
                 <ButtonsContainer>
                     <CustomButton type='submit'> Sign in </CustomButton>
-    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>{width < 425 ? 'Google' : 'Login with Google'}</CustomButton>
+                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>{width < 425 ? 'Google' : 'Login with Google'}</CustomButton>
                 </ButtonsContainer>
             </form>
         </SignInContainer>
