@@ -54,6 +54,7 @@ app.post('/payment', (req, res) => {
 
 app.post('/contact', async (req, res) => {
     const { name, email, message } = req.body;
+    console.log(req.body);
     const msg = {
         to: 'kiyashko.vlad1@gmail.com',
         from: email,
@@ -62,10 +63,11 @@ app.post('/contact', async (req, res) => {
     };
     
     if(email.includes('@')) {
+        console.log('from if')
         try {
             const result = await sgMail.send(msg);
+            console.log(result);
             res.status(result.statusCode).json('Email successfully sent');
-
         } catch (error) {
             if (error.response) {
                 console.error(error.response.body);
