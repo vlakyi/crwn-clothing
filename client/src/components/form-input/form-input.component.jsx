@@ -6,7 +6,7 @@ import { GroupContainer, StyledInput, FormInputLabel, } from './form-input.style
 
 const FormInput = ({ handleChange, label, value, id, ...otherProps }) => (
     <GroupContainer>
-        <StyledInput onChange={handleChange} id={id} {...otherProps} />
+        <StyledInput onChange={handleChange} id={id} value={value} {...otherProps} />
         {
             label ?
                 <FormInputLabel shrink={value} htmlFor={`${id ? id : ''}`}>
