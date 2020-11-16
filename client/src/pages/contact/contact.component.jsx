@@ -1,12 +1,13 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useCallback, useState } from 'react';
 import { ContactContainer, GroupContainer, StyledForm, StyledHeader, StyledTextArea, IconContainer, ArrowUp, InnerArrowUp, Box } from './contact.styles';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import FormInput from '../../components/form-input/form-input.component';
 import { FormInputLabel as FormTextAreaLabel } from '../../components/form-input/form-input.styles';
-import { throttle } from 'lodash';
-import axios from 'axios';
 
-import { useCallback } from 'react';
+import Modal from '../../components/modal/modal.component';
+
+import { debounce } from 'lodash';
+import axios from 'axios';
 
 const initialState = {
     name: '',
@@ -14,7 +15,15 @@ const initialState = {
     message: ''
 };
 
-export const reducer = (state, action) => {
+const initialModalState = {
+    isOpen: false,
+    isSuccess: false,
+    modalHeader: '',
+    modalText: '',
+    buttonText: ''
+};
+
+const reducer = (state, action) => {
     switch (action.type) {
         case 'name':
             return { ...state, name: action.payload }
@@ -22,38 +31,71 @@ export const reducer = (state, action) => {
             return { ...state, email: action.payload }
         case 'message':
             return { ...state, message: action.payload }
+        case 'clear':
+            return { ...initialState }
         default:
             return state;
     }
 };
 
+const modalReducer = (state, action) => {
+    switch (action.type) {
+        case 'openModal':
+            return { ...state, isOpen: true, ...action.payload };
+        case 'closeModal': {
+            return { ...initialModalState }
+        }
+        default:
+            return state;
+    }
+}
+
 const ContactPage = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { name, email, message } = state;
+    const [modalState, dispatchModal] = useReducer(modalReducer, initialModalState);
 
-    const dispatchInputValue = useCallback(throttle((name, value) => dispatch({ type: name, payload: value }), 250), []);
+    const { name, email, message } = state;
+    const { isOpen, isSuccess, modalHeader, modalText, buttonText } = modalState;
+
+    const [axiosText, setAxiosText] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        dispatchInputValue(name, value);
+        dispatch({ type: name, payload: value });
     }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (email.includes('@')) {
+    // eslint-disable-next-line
+    const handleSubmitDebounced = useCallback(debounce(async ( { name, email, message }) => {
+        if (email.includes('@') && name.length > 0 && message.length > 0) {
             try {
-                const { data, status } = await axios({
-                    url: 'contact',
-                    method: 'post',
-                    data: {
-                        name, email, message
+                dispatch({ type: 'clear' });
+                const { data } = await axios.post('contact', { name, email, message });
+                setAxiosText(data);
+                dispatchModal({
+                    type: 'openModal', payload: {
+                        isSuccess: true,
+                        modalHeader: 'Success',
+                        modalText: 'Thank you for message :)',
+                        buttonText: 'Close'
                     }
                 });
-                console.log(data, status);
             } catch (error) {
                 console.log(error);
             }
         }
+        else {
+            dispatchModal({
+                type: 'openModal', payload: {
+                    modalHeader: 'Wrong credentials',
+                    modalText: 'Fill all inputs first',
+                    buttonText: 'OK'
+                }
+            });
+        }
+    }, 500), []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await handleSubmitDebounced(state);
     }
 
     return (
@@ -68,7 +110,7 @@ const ContactPage = () => {
             <div>
                 <StyledHeader main>Connect with us.</StyledHeader>
                 <StyledHeader>Write your question below.</StyledHeader>
-                <StyledForm>
+                <StyledForm onSubmit={handleSubmit}>
                     <FormInput
                         handleChange={handleInputChange}
                         id="contactPageName"
@@ -91,7 +133,9 @@ const ContactPage = () => {
                         <StyledTextArea
                             onChange={handleInputChange}
                             name='message'
-                            id="message" />
+                            id="message"
+                            value={message}
+                        />
 
                         <FormTextAreaLabel
                             className='form-textarea-label'
@@ -101,11 +145,12 @@ const ContactPage = () => {
                     </GroupContainer>
 
                     <CustomButton
-                        onClick={handleSubmit}
+                        type='submit'
                         style={{ fontSize: 14 }}> Submit </CustomButton>
                 </StyledForm>
             </div>
-
+            {isOpen && <Modal handleButtonClick={() => dispatchModal({ type: 'closeModal' })} modalHeader={modalHeader} modalText={modalText} buttonText={buttonText} isSuccess={isSuccess} />}
+            <p>{axiosText}</p>
         </ContactContainer>
     )
 }
