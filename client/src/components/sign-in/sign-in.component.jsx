@@ -8,7 +8,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import { SignInContainer, ButtonsContainer, SignInTitle } from './sign-in.styles';
 import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actions';
 
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 
 const SignIn = ({ googleSignInStart, emailSignInStart }) => {
     const [userCredentials, setCredentials] = useState({ email: '', password: '' });
@@ -19,16 +19,19 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
         setWidth(window.innerWidth);
     }, [width]);
 
+    // eslint-disable-next-line
+    const emailSignInStartDebounced = useCallback(debounce((email, password) => emailSignInStart(email, password), 500), []);
+    // eslint-disable-next-line
+    const googleSignInStartDebounced = useCallback(debounce(() => googleSignInStart(), 500), []);
+
     const handleSubmit = async event => {
         event.preventDefault();
-        emailSignInStart(email, password);
+        emailSignInStartDebounced(email, password);
     };
-
-    const setCredentialsTrottle = useCallback(throttle((userCredentials, value, name) => setCredentials({ ...userCredentials, [name]: value }), 250), []);
 
     const handleChange = event => {
         const { value, name } = event.target;
-        setCredentialsTrottle(userCredentials, value, name);
+        setCredentials({ ...userCredentials, [name]: value });
     };
 
     return (
@@ -58,7 +61,7 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
                 />
                 <ButtonsContainer>
                     <CustomButton type='submit'> Sign in </CustomButton>
-                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignIn>{width < 425 ? 'Google' : 'Login with Google'}</CustomButton>
+                    <CustomButton type='button' onClick={googleSignInStartDebounced} isGoogleSignIn>{width < 425 ? 'Google' : 'Login with Google'}</CustomButton>
                 </ButtonsContainer>
             </form>
         </SignInContainer>

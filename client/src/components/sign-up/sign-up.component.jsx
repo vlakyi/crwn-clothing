@@ -8,7 +8,7 @@ import { signUpStart } from '../../redux/user/user.actions';
 
 import { SignUpContainer, SignUpTitle, SignUpForm } from './sign-up.styles';
 
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 
 const SignUp = ({ signUpStart }) => {
     const [userCredentials, setUserCredentials] = useState({
@@ -19,6 +19,9 @@ const SignUp = ({ signUpStart }) => {
     });
 
     const { displayName, email, password, confirmPassword } = userCredentials;
+    
+    // eslint-disable-next-line
+    const signUpStartDebounced = useCallback(debounce((displayName, email, password) => signUpStart({ displayName, email, password }), 500), []);
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -27,14 +30,13 @@ const SignUp = ({ signUpStart }) => {
             alert("passwords don't match");
             return;
         }
-        signUpStart({ displayName, email, password })
+        signUpStartDebounced(displayName, email, password);
     }
 
-    const setCredentialsTrottle = useCallback(throttle((userCredentials, name, value) => setUserCredentials({ ...userCredentials, [name]: value }), 250), []);
 
     const handleChange = event => {
         const { name, value } = event.target;
-        setCredentialsTrottle(userCredentials, name, value);
+        setUserCredentials({ ...userCredentials, [name]: value })
     }
 
     return (
@@ -71,6 +73,8 @@ const SignUp = ({ signUpStart }) => {
                     onChange={handleChange}
                     label='Password'
                     autoComplete='new-password'
+                    pattern=".{8,}"
+                    title="8 characters minimum"
                     required
                 />
 
@@ -82,6 +86,7 @@ const SignUp = ({ signUpStart }) => {
                     onChange={handleChange}
                     label='Confirm Password'
                     autoComplete='new-password'
+                    pattern=".{8,}"
                     required
                 />
 
