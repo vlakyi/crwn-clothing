@@ -54,29 +54,29 @@ app.post('/payment', (req, res) => {
 
 app.post('/contact', async (req, res) => {
     const { name, email, message } = req.body;
-    console.log(req.body);
     const msg = {
         to: 'kiyashko.vlad1@gmail.com',
         from: email,
         subject: `CRWN CLOTHING contact message from: ${name}`,
         text: message
     };
-    
-    if(email.includes('@')) {
-        console.log('from if')
+
+    if (/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
+        if (email == '' && message == '')
+            res.status(422).json('Fill all inputs first');
+
         try {
-            const result = await sgMail.send(msg);
-            console.log(result);
-            res.status(result.statusCode).json('Email successfully sent');
+            await sgMail.send(msg);
+            res.status(200).send({ response: 'Email successfully sent' });
         } catch (error) {
             if (error.response) {
                 console.error(error.response.body);
-                res.status(400).json(error.response.body);
+                res.status(400).send({ response: error.response.body });
             }
         }
     }
     else {
-        res.status(422).json('wrong email address format');
+        res.status(422).json('Email address format should look like this: xxx@xxx.xxx');
     }
 });
 
