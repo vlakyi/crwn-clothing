@@ -36,7 +36,6 @@ describe('Contact page test', () => {
         expect(screen.getByText(/Sign in$/i)).toBeInTheDocument();
         expect(screen.getByText(/login/i)).toBeInTheDocument();
         userEvent.click(screen.getByText(/sign in$/i));
-
         screen.debug();
     });
 
