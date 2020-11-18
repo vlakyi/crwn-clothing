@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSignInError } from '../../redux/user/user.selectors';
+import { selectUserError } from '../../redux/user/user.selectors';
 import UserActionTypes from '../../redux/user/user.types';
 
 import FormInput from '../form-input/form-input.component';
@@ -19,23 +19,22 @@ const SignIn = () => {
     const [width, setWidth] = useState(0);
 
     //Redux
-    const { GOOGLE_SIGN_IN_START, EMAIL_SIGN_IN_START, CLEAN_SIGN_IN_FAILURE } = UserActionTypes;
+    const { GOOGLE_SIGN_IN_START, EMAIL_SIGN_IN_START, CLEAN_USER_ERROR } = UserActionTypes;
     const dispatch = useDispatch();
-    const signInError = useSelector(selectSignInError);
+    const signInError = useSelector(selectUserError);
 
     // Modal config
     const [modalState, dispatchModal] = useModal();
     const { isDisplay, isSuccess, modalHeader, modalText, buttonText } = modalState;
 
-    if ((signInError?.code === 'auth/user-not-found' || signInError?.code === 'auth/wrong-password') && !isDisplay) {
+    if (signInError?.error_type === 'signin' && !isDisplay) {
         dispatchModal({
             type: 'openModal', payload: {
-                modalHeader: 'Login Fail',
+                modalHeader: 'Sign In Fail',
                 modalText: 'Check your credentials and try again',
                 buttonText: 'OK'
             }
         });
-
     }
 
     useEffect(() => {
@@ -92,7 +91,7 @@ const SignIn = () => {
 
             {isDisplay && <Modal closeModal={() => {
                 dispatchModal({ type: 'closeModal' });
-                dispatch({ type: CLEAN_SIGN_IN_FAILURE });
+                dispatch({ type: CLEAN_USER_ERROR });
             }} modalHeader={modalHeader} modalText={modalText} buttonText={buttonText} isSuccess={isSuccess} />}
         </SignInContainer>
     );
