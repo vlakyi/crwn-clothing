@@ -50,7 +50,7 @@ const SignUp = () => {
         if (password !== confirmPassword) {
             dispatchModal({
                 type: 'openModal', payload: {
-                    modalHeader: 'Failed to register',
+                    modalHeader: 'Sign Up Fail',
                     modalText: "Passwords don't match, check it and try again",
                     buttonText: 'OK'
                 }
