@@ -19,8 +19,8 @@ export const signInFailure = error => ({
     payload: error
 });
 
-export const cleanSignInFailure = () => ({
-    type: UserActionTypes.CLEAN_SIGN_IN_FAILURE,
+export const cleanUserError = () => ({
+    type: UserActionTypes.CLEAN_USER_ERROR,
     payload: null
 });
 
