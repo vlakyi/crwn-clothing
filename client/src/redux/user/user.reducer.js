@@ -20,9 +20,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 error: null
             }
         case UserActionTypes.SIGN_IN_FAILURE:
-        case UserActionTypes.CLEAN_SIGN_IN_FAILURE:
-        case UserActionTypes.SIGN_OUT_FAILURE:
+            return {
+                ...state,
+                error: { ...action.payload, error_type: 'signin' }
+            }
         case UserActionTypes.SIGN_UP_FAILURE:
+            return {
+                ...state,
+                error: { ...action.payload, error_type: 'signup' }
+            }
+        case UserActionTypes.CLEAN_USER_ERROR:
+        case UserActionTypes.SIGN_OUT_FAILURE:
             return {
                 ...state,
                 error: action.payload
