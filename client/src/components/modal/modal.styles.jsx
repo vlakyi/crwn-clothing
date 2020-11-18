@@ -52,6 +52,7 @@ export const ModalContainer = styled.div`
     padding: 30px;
     font-size: 16px;
     position: relative;
+    text-align: center;
     animation: ${fadeIn} 0.75s;
 
 
