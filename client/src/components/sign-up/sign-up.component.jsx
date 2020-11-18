@@ -2,37 +2,63 @@ import React, { useState, useCallback } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import Modal from '../modal/modal.component';
+import useModal from '../../hooks/useModal/useModal';
 
-import { connect } from 'react-redux';
-import { signUpStart } from '../../redux/user/user.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import UserActionTypes from '../../redux/user/user.types';
+import { selectUserError } from '../../redux/user/user.selectors';
 
 import { SignUpContainer, SignUpTitle, SignUpForm } from './sign-up.styles';
 
 import { debounce } from 'lodash';
 
-const SignUp = ({ signUpStart }) => {
+const SignUp = () => {
     const [userCredentials, setUserCredentials] = useState({
         displayName: '',
         email: '',
         password: '',
         confirmPassword: ''
     });
-
     const { displayName, email, password, confirmPassword } = userCredentials;
-    
+
+    // Redux
+    const dispatch = useDispatch();
+    const userError = useSelector(selectUserError);
+    const { CLEAN_USER_ERROR, SIGN_UP_START } = UserActionTypes;
+
+    // modal Config
+    const [modalState, dispatchModal] = useModal();
+    const { isDisplay, isSuccess, modalHeader, modalText, buttonText } = modalState;
+
     // eslint-disable-next-line
-    const signUpStartDebounced = useCallback(debounce((displayName, email, password) => signUpStart({ displayName, email, password }), 500), []);
+    const signUpStartDebounced = useCallback(debounce((displayName, email, password) => dispatch({ type: SIGN_UP_START, payload: { displayName, email, password } }), 500), []);
+
+    if (userError?.error_type === 'signup' && !isDisplay) {
+        dispatchModal({
+            type: 'openModal', payload: {
+                modalHeader: 'Sign Up Fail',
+                modalText: userError?.code === "auth/email-already-in-use" ? userError.message : 'Check your credentials and try again',
+                buttonText: 'OK'
+            }
+        });
+    }
 
     const handleSubmit = async event => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
-            alert("passwords don't match");
+            dispatchModal({
+                type: 'openModal', payload: {
+                    modalHeader: 'Failed to register',
+                    modalText: "Passwords don't match, check it and try again",
+                    buttonText: 'OK'
+                }
+            });
             return;
         }
         signUpStartDebounced(displayName, email, password);
     }
-
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -93,12 +119,12 @@ const SignUp = ({ signUpStart }) => {
                 <CustomButton type='submit'>SIGN UP</CustomButton>
 
             </SignUpForm>
+            {isDisplay && <Modal closeModal={() => {
+                dispatchModal({ type: 'closeModal' });
+                dispatch({ type: CLEAN_USER_ERROR });
+            }} modalHeader={modalHeader} modalText={modalText} buttonText={buttonText} isSuccess={isSuccess} />}
         </SignUpContainer>
     );
 }
 
-const mapDispatchToProps = dispatch => ({
-    signUpStart: (user) => dispatch(signUpStart(user))
-});
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;
