@@ -19,6 +19,11 @@ export const signInFailure = error => ({
     payload: error
 });
 
+export const cleanSignInFailure = () => ({
+    type: UserActionTypes.CLEAN_SIGN_IN_FAILURE,
+    payload: null
+});
+
 export const checkUserSession = () => ({
     type: UserActionTypes.CHECK_USER_SESSION
 });
