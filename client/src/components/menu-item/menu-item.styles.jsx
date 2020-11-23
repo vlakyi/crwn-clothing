@@ -9,7 +9,7 @@ export const BackgroundImage = styled.div`
 `;
 
 export const MenuItemContent = styled.div`
-    height: 90px;
+    height: 120px;
     padding: 0 25px;
     display: flex;
     flex-direction: column;
@@ -22,6 +22,16 @@ export const MenuItemContent = styled.div`
 
     @media screen and (max-width: 375px) {
         padding: 0 10px;
+    }
+
+    @media screen and (max-width: 425px) {
+       width: 60%;
+       height: 20%;
+       max-height: 120px;
+    }
+
+    @media screen and (max-width: 800px) {
+       height: 90;
     }
 `;
 
@@ -60,6 +70,13 @@ export const MenuItemContainer = styled.div`
     @media screen and (max-width: 800px) {
         height: 200px;
     }
+
+    @media screen and (max-width: 425px) {
+        height: 30vh;
+        min-height: 200px;
+        max-height: 250px;
+        width: 100%;
+    }
 `;
 
 export const MenuItemTitle = styled.h1`
@@ -70,6 +87,6 @@ export const MenuItemTitle = styled.h1`
 `;
 
 export const MenuItemSubtitle = styled.span`
-  font-weight: lighter;
+  font-weight: 500;
   font-size: 16px;
 `;
