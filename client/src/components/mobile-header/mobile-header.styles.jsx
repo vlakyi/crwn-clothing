@@ -77,7 +77,9 @@ export const OptionsContainer = styled.div`
 
     @media screen and (orientation: portrait) and (max-width: 800px), (orientation: landscape) and (max-height: 800px) {
         box-shadow: unset;
+        padding-top: 0px;
     }
+
 `;
 
 export const MainLinks = styled.div`
@@ -92,14 +94,14 @@ export const OptionLink = styled(Link)`
     font-weight: 500;
     cursor: pointer;
 
-    @media screen and (max-height: 640px), (max-width: 360px) {
+    @media screen and (max-height: 760px), (max-width: 360px) {
         font-size: 20px;
-        margin-bottom: 28px;
+        margin-bottom: 26px;
     }
 
     @media screen and (max-height: 570px), (max-width: 320px) {
-        font-size: 18px;
-        margin-bottom: 24px;
+        font-size: 16px;
+        margin-bottom: 20px;
     }
 `;
 
