@@ -6,5 +6,6 @@ export const SignInSignUpContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 30px auto;
+    margin: 0px auto;
+    margin-top: 100px;
 `;

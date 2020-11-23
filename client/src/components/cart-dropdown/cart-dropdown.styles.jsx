@@ -11,10 +11,10 @@ export const CartDropdownContainer = styled.div`
         border: 1px solid black;
         background-color: white;
         top: 90px;
-        right: 40px;
+        right: 30px;
         z-index: 5;
         scrollbar-width: 2px;
-        font-size: 14px;
+        font-size: 13px;
         
         button {
             margin-top: auto;

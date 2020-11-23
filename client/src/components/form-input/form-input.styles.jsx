@@ -54,7 +54,7 @@ export const FormInputLabel = styled.label`
     color: ${subColor};
     font-size: 16px;
     font-weight: normal;
-    font-family: 'Open Sans Condensed';
+    font-family: 'Montserrat';
     position: absolute;
     pointer-events: none;
     top: 10px;

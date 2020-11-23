@@ -17,6 +17,9 @@ export const CollectionItemContainer = styled.div`
       display: flex;
     }
   }
+  @media screen and (max-width: 1024px) {
+    font-size: 14px;
+  }
 
   @media screen and (max-width: 800px) {
       width: 40vw;
