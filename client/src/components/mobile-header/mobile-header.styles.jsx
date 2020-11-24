@@ -72,14 +72,13 @@ export const OptionsContainer = styled.div`
     background: white;
     transform: translateX(-100vw);
     transition: all 0.5s;
-    overflow-y: scroll;
     box-shadow: 8px 14px 20px 0px rgba(0, 0, 0, 0.5);
 
     @media screen and (orientation: portrait) and (max-width: 800px), (orientation: landscape) and (max-height: 800px) {
+        overflow-y: scroll; 
         box-shadow: unset;
         padding-top: 0px;
     }
-
 `;
 
 export const MainLinks = styled.div`
