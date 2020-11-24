@@ -47,7 +47,6 @@ export const CustomButtonContaner = styled.button`
     height: 50px;
     letter-spacing: 0.5px;
     line-height: 50px;
-    padding: 0 35px 0 35px;
     font-size: 0.975em;
     text-transform: uppercase;
     font-family: 'Montserrat';
