@@ -72,7 +72,7 @@ export const OptionsContainer = styled.div`
     background: white;
     transform: translateX(-100vw);
     transition: all 0.5s;
-    box-shadow: 8px 14px 20px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 8px 20px 13px 0px rgba(0,0,0,0.16);
 
     @media screen and (orientation: portrait) and (max-width: 800px), (orientation: landscape) and (max-height: 800px) {
         overflow-y: scroll; 
