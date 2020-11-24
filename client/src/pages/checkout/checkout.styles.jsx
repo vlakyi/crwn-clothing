@@ -16,7 +16,6 @@ export const CheckoutPageContainer = styled.div`
 
     @media screen and (max-width: 800px) {
         width: 85vw;
-        margin: 0 auto;
     }
 `;
 
