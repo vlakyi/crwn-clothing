@@ -11,15 +11,7 @@ export const CollectionItemContainer = styled.div`
   position: relative;
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   border-radius: 16px;
-  &:hover {
-    .image {
-      opacity: 0.8;
-    }
-    button {
-      opacity: 0.85;
-      display: flex;
-    }
-  }
+
   @media screen and (max-width: 1024px) {
     font-size: 14px;
   }
@@ -27,29 +19,11 @@ export const CollectionItemContainer = styled.div`
   @media screen and (max-width: 800px) {
       width: 40vw;
       margin-bottom: 20px;
-
-      &:hover {
-        .image {
-          opacity: unset;
-        }
-        button {
-          opacity: unset;
-        }
-      }
     }
 
   @media screen and (max-width: 425px) {
       width: 80vw;
       margin-bottom: 20px;
-
-      &:hover {
-        .image {
-          opacity: unset;
-        }
-        button {
-          opacity: unset;
-        }
-      }
     }
 `;
 
@@ -57,6 +31,7 @@ export const AddButton = styled(AddToCartIcon)`
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
   circle {
     opacity: 0.7;
   }
