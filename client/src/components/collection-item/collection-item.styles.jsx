@@ -1,13 +1,16 @@
 import styled from 'styled-components';
-import CustomButton from '../custom-button/custom-button.component';
+import { ReactComponent as AddToCartIcon } from '../../assets/add-to-cart.svg';
 
 export const CollectionItemContainer = styled.div`
-  width: 22vw;
   display: flex;
   flex-direction: column;
-  height: 350px;
+  width: 22vw;
+  max-width: 300px;
+  min-width: 250px;
   align-items: center;
   position: relative;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
   &:hover {
     .image {
       opacity: 0.8;
@@ -50,45 +53,52 @@ export const CollectionItemContainer = styled.div`
     }
 `;
 
-export const AddButton = styled(CustomButton)`
-  width: 80%;
-  opacity: 0.7;
+export const AddButton = styled(AddToCartIcon)`
   position: absolute;
-  top: 255px;
-  display: none;
+  top: 20px;
+  right: 20px;
+  circle {
+    opacity: 0.7;
+  }
+    
+  :hover {
+    circle {
+      fill: #36393d;
+      opacity: 1;
+    }
 
-  @media screen and (max-width: 800px) {
-      display: block;
-      opacity: 0.9;
-      min-width: unset;
-      padding: 0 10px;
-      width: 85%;
+    path {
+      fill: white;
+    }
   }
 `;
 
 export const BackgroundImage = styled.div`
   width: 100%;
-  height: 95%;
+  height: 20rem;
+  max-height: 300px;
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  border-radius: 16px 16px 0 0;
 `;
 
 export const CollectionFooterContainer = styled.div`
   width: 100%;
-  height: 5%;
   display: flex;
-  justify-content: space-between;
-  font-size: 18px;
+  flex-direction: column;
+  padding: 15px;
+  font-size: 16px;
 `;
 
 export const NameContainer = styled.span`
-  width: 90%;
-  margin-bottom: 30px;
+  margin-bottom: 1em;
+  font-size: 1.125em;
+  font-weight: 600;
 `;
 
 export const PriceContainer = styled.span`
-  width: 10%;
-  text-align: right;
+  font-weight: 500;
+  font-size: 1.125em;
 `;
