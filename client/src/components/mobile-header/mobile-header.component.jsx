@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
-import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import CartIcon from '../cart-icon/cart-icon.component';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import UserActionTypes from '../../redux/user/user.types';
+import CartActionTypes from '../../redux/cart/cart.types';
 
 // Reselect
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 //Styled component
-import { HeaderContainer, MainNavigation, OptionsContainer, MainLinks, OptionLink, OptionLinkRight, HamburgerContainer } from './mobile-header.styles';
+import { HeaderContainer, OptionsContainer, MainLinks, OptionLink, OptionLinkRight, HamburgerContainer } from './mobile-header.styles';
 
 const MobileHeader = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -21,6 +22,7 @@ const MobileHeader = () => {
 
     const hamburgerRef = useRef();
     const optionsRef = useRef();
+    const cartDropdownRef = useRef();
 
     const toggleHamburger = () => {
         hamburgerRef.current.classList.toggle('mobile__menu__hamburger--open');
@@ -31,6 +33,9 @@ const MobileHeader = () => {
         function handleClickOutside(event) {
             if (optionsRef.current && !optionsRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target) && optionsRef.current.classList.contains('mobile__menu__options--open'))
                 toggleHamburger();
+
+            if (cartDropdownRef.current && !cartDropdownRef.current.contains(event.target) && !hidden)
+                dispatch({ type: CartActionTypes.TOGGLE_CART_HIDDEN });
         }
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -39,19 +44,17 @@ const MobileHeader = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
 
-    }, [optionsRef]);
+    }, [optionsRef, dispatch, hidden]);
 
     return (
         <HeaderContainer>
-            <MainNavigation>
-                <HamburgerContainer ref={hamburgerRef} onClick={toggleHamburger}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </HamburgerContainer>
-                <CartIcon />
-                {hidden ? null : <CartDropdown />}
-            </MainNavigation>
+            <HamburgerContainer ref={hamburgerRef} onClick={toggleHamburger}>
+                <div></div>
+                <div></div>
+                <div></div>
+            </HamburgerContainer>
+            <CartIcon style={{ position: 'fixed', top: '30px', right: '40px' }} />
+            {hidden ? null : <CartDropdown ref={cartDropdownRef} />}
 
             <OptionsContainer ref={optionsRef}>
                 <MainLinks>
