@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -26,6 +26,20 @@ const MobileHeader = () => {
         hamburgerRef.current.classList.toggle('mobile__menu__hamburger--open');
         optionsRef.current.classList.toggle('mobile__menu__options--open');
     }
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (optionsRef.current && !optionsRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target) && optionsRef.current.classList.contains('mobile__menu__options--open'))
+                toggleHamburger();
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+
+    }, [optionsRef]);
 
     return (
         <HeaderContainer>
