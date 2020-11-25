@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const HeaderContainer = styled.div`
     height: 70px;
     width: 100%;
-    position: fixed;
+    position: relative;
     z-index: 90;
 
     .mobile__menu__options--open {
@@ -20,17 +20,15 @@ export const HeaderContainer = styled.div`
 
 export const MainNavigation = styled.nav`
     width: 100vw;
-    height: 100px;
     top: 0;
     left: 0;
     position: fixed;
-    background: white;
+    background: green;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px;
     margin-bottom: 50px;
-    z-index: 100;
 
     .mobile__menu__hamburger--open {
         transform-origin: center;
@@ -58,11 +56,12 @@ export const MainNavigation = styled.nav`
 
 export const OptionsContainer = styled.div`
     position: fixed;
-    height: calc(100vh - 100px);
+    height: 100vh;
     width: 100vw;
     max-width: 800px;
     padding: 30px;
-    top: 100px;
+    padding-top: 130px;
+    top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
@@ -72,12 +71,12 @@ export const OptionsContainer = styled.div`
     background: white;
     transform: translateX(-100vw);
     transition: all 0.5s;
-    box-shadow: 8px 20px 13px 0px rgba(0,0,0,0.16);
+    box-shadow: 8px 0px 13px 0px rgba(0,0,0,0.16);
 
     @media screen and (orientation: portrait) and (max-width: 800px), (orientation: landscape) and (max-height: 800px) {
         overflow-y: scroll; 
         box-shadow: unset;
-        padding-top: 0px;
+        padding-top: 100px;
     }
 `;
 
@@ -116,6 +115,10 @@ export const HamburgerContainer = styled.div`
     flex-direction: column;
     width: 36px;
     height: 24px;
+    z-index: 100;
+    position: fixed;
+    top: 30px;
+    left: 40px;
     cursor: pointer;
 
     & div {
