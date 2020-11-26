@@ -11,25 +11,6 @@ export const HeaderContainer = styled.div`
         transform: translateX(0px);
     }
 
-    @media screen and (max-width: 800px) {
-        height: 60px;
-        padding: 0 30px;
-        margin-bottom: 20px;
-    }
-`;
-
-export const MainNavigation = styled.nav`
-    width: 100vw;
-    top: 0;
-    left: 0;
-    position: fixed;
-    background: green;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
-    margin-bottom: 50px;
-
     .mobile__menu__hamburger--open {
         transform-origin: center;
         width: 31px;
@@ -51,6 +32,12 @@ export const MainNavigation = styled.nav`
         & div:last-of-type {
             transform: translateY(-4px) rotate(45deg);
         }
+    }
+
+    @media screen and (max-width: 800px) {
+        height: 60px;
+        padding: 0 30px;
+        margin-bottom: 20px;
     }
 `;
 
