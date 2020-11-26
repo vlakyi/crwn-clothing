@@ -23,6 +23,7 @@ const MobileHeader = () => {
     const hamburgerRef = useRef();
     const optionsRef = useRef();
     const cartDropdownRef = useRef();
+    const cartIconRef = useRef();
 
     const toggleHamburger = () => {
         hamburgerRef.current.classList.toggle('mobile__menu__hamburger--open');
@@ -34,7 +35,7 @@ const MobileHeader = () => {
             if (optionsRef.current && !optionsRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target) && optionsRef.current.classList.contains('mobile__menu__options--open'))
                 toggleHamburger();
 
-            if (cartDropdownRef.current && !cartDropdownRef.current.contains(event.target) && !hidden)
+            if (cartDropdownRef.current && !cartDropdownRef.current.contains(event.target) && !cartIconRef.current.contains(event.target) && !hidden)
                 dispatch({ type: CartActionTypes.TOGGLE_CART_HIDDEN });
         }
 
@@ -53,7 +54,7 @@ const MobileHeader = () => {
                 <div></div>
                 <div></div>
             </HamburgerContainer>
-            <CartIcon style={{ position: 'fixed', top: '30px', right: '40px' }} />
+            <CartIcon ref={cartIconRef} style={{ position: 'fixed', top: '30px', right: '40px' }} />
             {hidden ? null : <CartDropdown ref={cartDropdownRef} />}
 
             <OptionsContainer ref={optionsRef}>
