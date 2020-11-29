@@ -13,7 +13,7 @@ const CollectionItem = ({ item, addItem }) => {
             <BackgroundImage imageUrl={imageUrl}/>
             <CollectionFooterContainer>
                 <NameContainer>{name}</NameContainer>
-                <PriceContainer>{price.toFixed(2)}$</PriceContainer>
+                <PriceContainer>${price.toFixed(2)}</PriceContainer>
             </CollectionFooterContainer>
         </CollectionItemContainer>
     )
