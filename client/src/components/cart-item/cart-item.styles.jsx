@@ -18,12 +18,16 @@ export const ItemDetails = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 10px 20px;
+    padding-left: 20px;
 `;
 
 export const Name = styled.span`
   font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
 `;
 
 export const Price = styled.span`
+  font-size: 14px;
+  font-weight: 500;
 `;
