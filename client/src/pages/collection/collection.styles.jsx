@@ -4,7 +4,6 @@ export const CollectionPageContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 100px;
 `;
 
 export const ItemsContainer = styled.div`

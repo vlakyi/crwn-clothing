@@ -21,7 +21,6 @@ export const ContactContainer = styled.div`
     max-width: 1200px;
     padding: 35px;
     margin: 0 auto;
-    margin-top: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-content: center;
