@@ -9,6 +9,19 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat';
         padding: 20px 40px;
 
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+    
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0 ,0.2);
+            border-radius: 10px;
+        }
+
         @media screen and (max-width: 800px) {
             padding: 10px;
         }
