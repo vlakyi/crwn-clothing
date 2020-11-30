@@ -1,4 +1,6 @@
-import { setItemQuantity, addItemToCart, removeItemFromCart } from '../redux/cart/cart.utils';
+import { setItemQuantity } from '../redux/cart/cart.utils';
+import CartActionTypes from '../redux/cart/cart.types';
+const { ADD_ITEM, REMOVE_ITEM, SET_ITEM_QUANTITY } = CartActionTypes;
 
 const cartItems = [
     {
@@ -32,11 +34,11 @@ const cartItem = {
     quantity: 10
 };
 
-describe('Cart setItemQuantity function test', () => {
+describe('Cart setItemQuantity function test with SET_ITEM_QUANTITY action', () => {
 
     it('testing setItemQuantity function with quality > 0', () => {
         const quantity = 5;
-        expect(setItemQuantity(cartItems, cartItem, quantity)).toStrictEqual(
+        expect(setItemQuantity(SET_ITEM_QUANTITY, cartItems, cartItem, quantity)).toStrictEqual(
             cartItems.map((item) => {
                 if (item.id === cartItem.id)
                     return { ...item, quantity: quantity };
@@ -47,7 +49,7 @@ describe('Cart setItemQuantity function test', () => {
 
     it('testing setItemQuantity function with quality <= 0', () => {
         const quantity = 0;
-        expect(setItemQuantity(cartItems, cartItem, quantity)).toStrictEqual([cartItems[1], cartItems[2]]);
+        expect(setItemQuantity(SET_ITEM_QUANTITY, cartItems, cartItem, quantity)).toStrictEqual([cartItems[1], cartItems[2]]);
     });
 
     it('testing setItemQuantity function with not existing item', () => {
@@ -60,25 +62,14 @@ describe('Cart setItemQuantity function test', () => {
         }
 
         const quantity = 5;
-        expect(setItemQuantity(cartItems, notExistingItem, quantity)).toStrictEqual([...cartItems, { ...notExistingItem, quantity: quantity }]);
-    });
-
-    it('testing setItemQuantity function with undefined quantity', () => {
-        const notExistingItem = {
-            id: 'not_existing_item',
-            imageUrl: "https://i.ibb.co/mJS6vz0/not_existing_item.png",
-            name: "Not Existing Item",
-            price: 150,
-            quantity: 2
-        }
-
-        expect(setItemQuantity(cartItems, notExistingItem)).toStrictEqual([...cartItems, notExistingItem]);
+        expect(setItemQuantity(SET_ITEM_QUANTITY, cartItems, notExistingItem, quantity)).toStrictEqual([...cartItems, { ...notExistingItem, quantity: quantity }]);
     });
 
 });
-describe('addItemToCart function', () => {
-    it('testing addItemToCart function with existing cartItem', () => {
-        expect(addItemToCart(cartItems, cartItem)).toStrictEqual(
+
+describe('setItemQuantity function with ADD_ITEM action', () => {
+    it('testing setItemQuantity function with existing cartItem', () => {
+        expect(setItemQuantity(ADD_ITEM, cartItems, cartItem)).toStrictEqual(
             cartItems.map((item) => {
                 if (item.id === cartItem.id)
                     return { ...item, quantity: item.quantity + 1 };
@@ -87,7 +78,7 @@ describe('addItemToCart function', () => {
         );
     });
 
-    it('testing addItemToCart function with existing cartItem', () => {
+    it('testing setItemQuantity function with existing cartItem', () => {
         const notExistingCartItem = {
             id: "jackets_8",
             imageUrl: "https://i.ibb.co/mJS6vz0/not-existing-jacket.png",
@@ -96,14 +87,14 @@ describe('addItemToCart function', () => {
             quantity: 1
         };
 
-        expect(addItemToCart(cartItems, notExistingCartItem)).toStrictEqual([...cartItems, notExistingCartItem]);
+        expect(setItemQuantity(ADD_ITEM, cartItems, notExistingCartItem)).toStrictEqual([...cartItems, notExistingCartItem]);
     });
 });
 
-describe('removeItemFromCart function', () => {
-    it('testing removeItemFromCart function with existing cartItem with quntity > 1', () => {
+describe('setItemQuantity function with REMOVE_ITEM action', () => {
+    it('testing setItemQuantity function with existing cartItem with quntity > 1', () => {
 
-        expect(removeItemFromCart(cartItems, cartItem)).toStrictEqual(
+        expect(setItemQuantity(REMOVE_ITEM, cartItems, cartItem)).toStrictEqual(
             cartItems.map((item) => {
                 if (item.id === cartItem.id)
                     return { ...item, quantity: item.quantity - 1 };
@@ -112,7 +103,7 @@ describe('removeItemFromCart function', () => {
         );
     });
 
-    it('testing removeItemFromCart function with existing cartItem with quntity === 1', () => {
+    it('testing setItemQuantity function with existing cartItem with quntity === 1', () => {
         const cartItemToRemove = {
             id: "jackets_4",
             imageUrl: "https://i.ibb.co/mJS6vz0/green-jacket.png",
@@ -121,8 +112,10 @@ describe('removeItemFromCart function', () => {
             quantity: 1
         };
 
-        expect(removeItemFromCart(cartItems, cartItemToRemove)).toStrictEqual([cartItems[0], cartItems[1]]);
+        expect(setItemQuantity(REMOVE_ITEM, cartItems, cartItemToRemove)).toStrictEqual([cartItems[0], cartItems[1]]);
     });
 });
 
-
+it('setItemQuantity function with default action', () => {
+    expect(setItemQuantity(undefined, cartItems, cartItem)).toStrictEqual(cartItems);
+});
