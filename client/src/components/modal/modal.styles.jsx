@@ -37,7 +37,7 @@ export const Overlay = styled.div`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.3);
