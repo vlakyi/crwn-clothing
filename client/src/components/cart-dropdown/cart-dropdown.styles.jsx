@@ -33,12 +33,14 @@ export const CartItems = styled.div`
         padding: 0 3px;
       }
     
-      &::-webkit-scrollbar-track {
-          background: transparent;
-      }
-      &::-webkit-scrollbar-thumb {
-          background-color: rgba(0, 0, 0 ,0.2);
-      }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0 ,0.2);
+        border-radius: 10px;
+    }
 `;
 
 export const EmptyMessage = styled.span`
