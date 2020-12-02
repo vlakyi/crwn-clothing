@@ -94,6 +94,8 @@ export const OptionLinkRight = styled(OptionLink)`
     align-self: flex-end;
     margin-bottom: unset;
     padding-bottom: 12px;
+    position: absolute;
+    top: 30px;
 `
 
 export const HamburgerContainer = styled.div`
